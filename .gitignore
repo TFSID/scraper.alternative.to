@@ -1,0 +1,8 @@
+# Virtual Environment
+.venv/
+venv/
+ENV/
+
+# Chrome Profile - ignore contents but keep folder
+chrome_profile/*
+!chrome_profile/README.md
