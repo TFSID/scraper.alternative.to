@@ -203,15 +203,16 @@ class HybridWebScraper:
         unwanted_indicators = self.unwanted_indicators
 
         # Parse HTML content to extract title and main content
-        # try:
-        #     soup = BeautifulSoup(content, 'html.parser')
-        #     title = soup.title.string.lower() if soup.title else ''
-        #     main_content = ' '.join([text.strip() for text in soup.stripped_strings])[:500]
-        # except Exception as e:
-        #     self.log_error(url=self.current_url,
-        #                 error=str(e),
-        #                 message="Error during HTML parsing")
-        #     return {'type': 'error', 'needs_verification': False, 'content': content}
+
+        try:
+            soup = BeautifulSoup(content, 'html.parser')
+            title = soup.title.string.lower() if soup.title else ''
+            main_content = ' '.join([text.strip() for text in soup.stripped_strings])[:500]
+        except Exception as e:
+            self.log_error(url=self.current_url,
+                        error=str(e),
+                        message="Error during HTML parsing")
+            return {'type': 'error', 'needs_verification': False, 'content': content}
 
         # Check for verification keywords in title first
         is_verification_keyword = any(indicator in title for indicator in self.verification_keywords)
